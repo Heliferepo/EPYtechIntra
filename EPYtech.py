@@ -35,15 +35,18 @@ class EPYtechIntra:
                     json.dumps({ 'request': req, 'answer': rep.text, 'status_code': rep.status_code, 'error': str(e)},
                     indent=4))
 
-    def update_autologin(self):
-        rep = self._make_request('admin/autolog/generate', get=False)
-        self.AUTOLOGIN = json.loads(rep.text)['autologin']
+    def save_autologin(self):
         try:
             with open(self.AUTOLOGIN_FILE_PATH, 'w+') as f:
                 f.write(self.AUTOLOGIN)
         except Exception as e:
             print('EPYtechIntraWarning: Could not save new Autologin in file: '
                     + str(e), file=sys.stderr)
+
+    def update_autologin(self):
+        rep = self._make_request('admin/autolog/generate', get=False)
+        self.AUTOLOGIN = json.loads(rep.text)['autologin']
+        self.save_autologin()
 
     def get_autologin(self, by_req=False):
         if by_req is True:
@@ -120,3 +123,4 @@ class EPYtechIntra:
                         self.AUTOLOGIN_FILE_PATH)
         else:
             self.AUTOLOGIN = autologin
+            self.save_autologin()
