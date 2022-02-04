@@ -21,12 +21,12 @@ class EPYtechIntra:
     def get_payload(self):
         return self.INTRA + self.AUTOLOGIN + '/'
 
-    def _make_request(self, req, get=True, json=True):
+    def _make_request(self, req, get=True, use_json=True):
         req = self.get_payload() + req
-        if format_json:
+        if use_json:
             req += '&format=json' if req.count('?') else '?format=json'
         try:
-            rep = request.get(req) if get is True else requests.post(req)
+            rep = requests.get(req) if get is True else requests.post(req)
             rep.raise_for_status()
             return rep
         except Exception as e:
@@ -55,7 +55,9 @@ class EPYtechIntra:
         year = '|'.join(year)
         prom = '|'.join(prom)
         location = '|'.join(location)
-        return json.loads(self._make_request(f'user/filter/user?format=json&location={location}&year={year}&active=true&promo={prom}&offset={offset}').text)
+        req = f'user/filter/user?format=json&location={location}&year={year}&active=true&promo={prom}&offset={offset}'
+        print(req)
+        return json.loads(self._make_request(req).text)
 
     def get_module(self, year, module, instance):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/').text)
@@ -76,7 +78,7 @@ class EPYtechIntra:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/registered').text)
 
     def get_project_unregistered(self, year, module, instance, activity):
-        return self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/exportunregistered', json=False).text.split('\n')
+        return self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/exportunregistered', use_json=False).text.split('\n')
 
     def get_project_files(self, year, module, instance, activity):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/file/').text)
