@@ -55,6 +55,10 @@ class EPYtechIntra:
             return self.AUTOLOGIN
 
     def trombi(self, location, prom, year, offset='0'):
+        if not isinstance(location, list): location = [location]
+        if not isinstance(prom, list):     prom     = [prom]
+        if not isinstance(year, list):     year     = [year]
+
         year = '|'.join(year)
         prom = '|'.join(prom)
         location = '|'.join(location)
