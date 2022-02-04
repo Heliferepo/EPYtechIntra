@@ -116,4 +116,5 @@ class EPYtechIntra:
                 raise EPYtechIntraError("Error: " + str(e) + '\n' +
                         "You did not provide any autologin and we could not find one in " +
                         self.AUTOLOGIN_FILE_PATH)
-        self.AUTOLOGIN = autologin
+        else:
+            self.AUTOLOGIN = autologin
