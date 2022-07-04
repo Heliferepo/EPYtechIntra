@@ -1,4 +1,63 @@
-import sys, requests, json
+from sys import stderr
+import requests
+import json
+
+EPITECH_TIRANA      = 'AL/TIR'
+EPITECH_BRUXELLES   = 'BE/BRU'
+EPITECH_COTONOU     = 'BJ/COT'
+EPITECH_BORDEAUX    = 'FR/BDX'
+EPITECH_LA_REUNION  = 'FR/RUN'
+EPITECH_LILLE       = 'FR/LIL'
+EPITECH_LYON        = 'FR/LYN'
+EPITECH_MARSEILLE   = 'FR/MAR'
+EPITECH_MONTPELLIER = 'FR/MPL'
+EPITECH_MOULINS     = 'FR/MLN'
+EPITECH_MULHOUSE    = 'FR/MLH'
+EPITECH_NANCY       = 'FR/NCY'
+EPITECH_NANTES      = 'FR/NAN'
+EPITECH_NICE        = 'FR/NCE'
+EPITECH_PARIS       = 'FR/PAR'
+EPITECH_RENNES      = 'FR/REN'
+EPITECH_STRASBOURG  = 'FR/STG'
+EPITECH_TOULOUSE    = 'FR/TLS'
+EPITECH_BERLIN      = 'DE/BER'
+EPITECH_BARCELONA   = 'ES/BAR'
+
+EPITECH BACHELOR_CLASSIC  = 'bachelor/classic'
+EPITECH_BACHELOR_TEK2ED   = 'bachelor/tek2ed'
+
+EPITECH_CODAC_CODE_AND_GO = 'Code-And-Go'
+EPITECH_CODAC_DEV_AND_GO  = 'Dev-And-Go'
+EPITECH_CODAC_DATA_AND_GO = 'Data-And-Go'
+
+EPITECH_GLOBAL_DIGITAL    = 'globaldigital'
+
+EPITECH_MASTER_CLASSIC    = 'master/classic'
+
+EPITECH_MSC               = 'msc'
+EPITECH_PRE_MSC           = 'premsc'
+
+EPITECH_WAC               = 'webacademie'
+EPITECH_WAC_AMBITION_FEMININE = 'wac-ambition-feminine'
+
+EPITECH_CODAC1 = 'Codac1'
+
+EPITECH_DIGITAL1 = 'Digital1'
+EPITECH_DIGITAL2 = 'Digital2'
+EPITECH_DIGITAL4 = 'Digital4'
+
+EPITECH_MSC3 = 'msc3'
+EPITECH_MSC4 = 'msc4'
+EPITECH_MSC5 = 'msc5'
+
+EPITECH_TEK1 = 'tek1'
+EPITECH_TEK2 = 'tek2'
+EPITECH_TEK3 = 'tek3'
+EPITECH_TEK4 = 'tek4'
+EPITECH_TEK5 = 'tek5'
+
+EPITECH_WAC1 = 'wac1'
+EPITECH_WAC2 = 'wac2'
 
 class EPYtechIntraError(Exception):
 
@@ -10,7 +69,6 @@ class EPYtechIntraError(Exception):
 
     def __repr__(self):
         return 'EPYtechIntraError(message: ' + str(self) + ')'
-
 
 class EPYtechIntra:
 
@@ -41,7 +99,7 @@ class EPYtechIntra:
                 f.write(self.AUTOLOGIN)
         except Exception as e:
             print('EPYtechIntraWarning: Could not save new Autologin in file: '
-                    + str(e), file=sys.stderr)
+                    + str(e), file=stderr)
 
     def update_autologin(self):
         rep = self._make_request('admin/autolog/generate', get=False)
@@ -54,7 +112,7 @@ class EPYtechIntra:
         else:
             return self.AUTOLOGIN
 
-    def trombi(self, location, prom, year, offset='0'):
+    def trombi(self, location, prom, year, offset=0):
         if not isinstance(location, list): location = [location]
         if not isinstance(prom, list):     prom     = [prom]
         if not isinstance(year, list):     year     = [year]
@@ -63,8 +121,10 @@ class EPYtechIntra:
         prom = '|'.join(prom)
         location = '|'.join(location)
         req = f'user/filter/user?format=json&location={location}&year={year}&active=true&promo={prom}&offset={offset}'
-        print(req)
-        return json.loads(self._make_request(req).text)
+        res = json.loads(self._make_request(req).text)
+        while offset + len(res['items']) < res['total']:
+            res['items'].extend(self.trombi(location, prom, year, offset + len(res['items']))['items'])
+        return res
 
     def get_module(self, year, module, instance):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/').text)
@@ -96,10 +156,11 @@ class EPYtechIntra:
     def get_internship(self):
         return json.loads(self._make_request('stage'))
 
-    get_stage = get_internship
-
     def get_user(self, user):
         return json.loads(self._make_request(f'user/{user}').text)
+
+    def get_user_print(self, user):
+        return json.loads(self._make_request(f'/user/{user}/print').text)
 
     def get_user_netsoul(self, user):
         return json.loads(self._make_request(f'user/{user}/netsoul').text)
