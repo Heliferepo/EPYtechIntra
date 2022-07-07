@@ -17,6 +17,7 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 | `get_autologin` `by_req=False` | Returns in a string the current autologin | `auth-XXXX` |
 | `trombi` | Returns the list of students matching the given parameters (All the parameters should be a list) | `(Json)` |
 | `get_module` | Returns Information about the given module | `(Json)` |
+| `get_registered_module` | Returns all the users that are registered to a specific module | `(Json)` |
 
 ### Locations, prom aliases examples:
 
@@ -61,7 +62,7 @@ print(json.dumps(client.trombi([EPYtech.EPITECH_PARIS], [EPYtech.EPITECH_TEK1], 
 
 #### Request:
 ```python3
-print(json.dumps(client.trombi([EPYTech.EPITECH_PARIS], ['tek1', 'tek2'], ['XXXX']), indent=4))
+print(json.dumps(client.get_module(EPYTech.EPITECH_PARIS, 'tek1', 'XXXX'), indent=4))
 ```
 
 #### Response:
@@ -181,4 +182,33 @@ print(json.dumps(client.trombi([EPYTech.EPITECH_PARIS], ['tek1', 'tek2'], ['XXXX
         }
     ]
 }
+```
+
+### Get registered module
+
+#### Request:
+
+```python3
+print(json.dumps(client.get_registered_module(EPYTech.EPITECH_PARIS, 'tek1', 'XXXX'), indent=4))
+```
+
+#### Response:
+
+```json
+[
+    {
+        "login": "john.doe@epitech.eu",
+        "picture": "\/file\/userprofil\/john.doe@epitech.eu.bmp",
+        "title": "John DOE",
+        "location": null,
+        "promo": 20XX,
+        "course_code": "XXXXXXx",
+        "grade": null,
+        "cycle": "XXXXX",
+        "date_ins": "XXXX-XX-XX 00:00:00",
+        "credits": 0,
+        "flags": [],
+        "semester": "XX"
+    }
+]
 ```
