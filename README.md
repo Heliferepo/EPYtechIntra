@@ -201,7 +201,7 @@ print(json.dumps(client.get_registered_module(EPYTech.EPITECH_PARIS, 'tek1', 'XX
         "picture": "\/file\/userprofil\/john.doe@epitech.eu.bmp",
         "title": "John DOE",
         "location": null,
-        "promo": 20XX,
+        "promo": 2022,
         "course_code": "XXXXXXx",
         "grade": null,
         "cycle": "XXXXX",
