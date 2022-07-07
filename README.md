@@ -18,6 +18,8 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 | `trombi` | `def trombi(self, location: List[str], prom: List[str], year: List[str], offset: int = 0) -> List[Dict(str, str)]:` | Returns the list of students matching the given parameters (All the parameters should be a list) | `(Json)` |
 | `get_module` | `def get_module(self, year: str \| int, module: str, instance: str) -> Dict(str, Any):` | Returns Information about the given module | `(Json)` |
 | `get_registered_module` | `def get_registered_module(self, year: str \| int, module: str, instance: str) -> List[Dict(str, Any)]:` | Returns all the users that are registered to a specific module | `(Json)` |
+| `get_activity` | `def get_activity(self, year: str \| int, module: str, instance: str, activity: str) -> Dict(str, Any):` | Returns information about a specific module | `(Json)`
+| `get_activity_appointments` | `def get_activity_appointments(self, year: str | int, module: str, instance: str, activity: str) -> Any:` | 
 
 ### Locations, prom aliases examples:
 
@@ -62,7 +64,7 @@ print(json.dumps(client.trombi([EPYtech.EPITECH_PARIS], [EPYtech.EPITECH_TEK1], 
 
 #### Request:
 ```python3
-print(json.dumps(client.get_module(EPYTech.EPITECH_PARIS, 'tek1', 'XXXX'), indent=4))
+print(json.dumps(client.get_module(2022, EPYTech.EPITECH_PARIS, 'tek1'), indent=4))
 ```
 
 #### Response:
@@ -189,7 +191,7 @@ print(json.dumps(client.get_module(EPYTech.EPITECH_PARIS, 'tek1', 'XXXX'), inden
 #### Request:
 
 ```python3
-print(json.dumps(client.get_registered_module(EPYTech.EPITECH_PARIS, 'tek1', 'XXXX'), indent=4))
+print(json.dumps(client.get_registered_module(2022, EPYTech.EPITECH_PARIS, 'tek1'), indent=4))
 ```
 
 #### Response:
@@ -212,3 +214,146 @@ print(json.dumps(client.get_registered_module(EPYTech.EPITECH_PARIS, 'tek1', 'XX
     }
 ]
 ```
+
+### Get activity:
+
+#### Request:
+```python3
+print(json.dumps(client.get_activity(2022, 'XXXX', 'XXXX', 'XXXX'), indent=4))
+```
+
+#### Response:
+```json
+{
+    "scolaryear": "2022",
+    "codemodule": "X-XXX-XXX",
+    "codeinstance": "XXX-X-X",
+    "codeacti": "acti-XXXXXX",
+    "call_ihk": "1",
+    "slug": "name",
+    "instance_location": "FR\/PAR",
+    "module_title": "XX - XXXXXXX",
+    "title": "XXXXXXXX",
+    "description": "",
+    "type_title": "XXXXXX",
+    "type_code": "proj",
+    "begin": "0000-00-00 00:00:00",
+    "start": "0000-00-00 00:00:00",
+    "end_register": "0000-00-00 00:00:00",
+    "deadline": null,
+    "end": "0000-00-00 00:00:00",
+    "nb_hours": null,
+    "nb_group": 1,
+    "num": 1,
+    "register": "0",
+    "register_by_bloc": "0",
+    "register_prof": "0",
+    "title_location_type": null,
+    "is_projet": true,
+    "id_projet": "0",
+    "project_title": "XXXXX",
+    "is_note": true,
+    "nb_notes": 0,
+    "is_blocins": false,
+    "rdv_status": "close",
+    "id_bareme": null,
+    "title_bareme": null,
+    "archive": "1",
+    "hash_elearning": null,
+    "ged_node_adm": null,
+    "nb_planified": null,
+    "hidden": false,
+    "project": null,
+    "student_registered": null,
+    "events": []
+}
+```
+
+### Get activity appointments:
+
+#### Response:
+
+```json
+{
+    "scolaryear": "XXXX",
+    "codemodule": "X-XXX-XXX",
+    "codeinstance": "XXX",
+    "codeacti": "acti-XXXXX",
+    "nb_notes": 0,
+    "register_by_bloc": false,
+    "group": {
+        "id": 15097109357,
+        "code": "XXXXX",
+        "title": "XXXXX",
+        "inscrit": true,
+        "master": "john.doe@epitech.eu",
+        "members": [
+            "john2.doe@epitech.eu"
+        ]
+    },
+    "projects": [
+        {
+            "title": "Follow-up - XXXX",
+            "codeacti": "acti-XXXXXX",
+            "id_projet": null
+        }
+    ],
+    "events": [
+        {
+            "id": "XXXXXX",
+            "nb_registered": "0",
+            "begin": "XXXX-XX-XX 00:00:00",
+            "register": "0",
+            "num_event": "1",
+            "end": "XXXX-XX-XX 00:00:00",
+            "location": "XXXXXX",
+            "title": "Follow-up - XXXX",
+            "date_ins": null,
+            "date_modif": null
+        }
+    ],
+    "title": "Follow-up - XXXXXX",
+    "description": "",
+    "instance_location": "XXXXX",
+    "module_title": "BX - XXXXXXXXXXXX",
+    "project": {
+        "id": 15097109357,
+        "scolaryear": "2021",
+        "codemodule": "X-XXXX-XXX",
+        "codeinstance": "XXXX-X-X",
+        "title": "XXXXXXXXXXX"
+    },
+    "student_registered": true,
+    "with_project": true,
+    "nb_registered": 24,
+    "nb_slots_full": 10,
+    "slots": [
+        {
+            "id": 156046,
+            "title": "",
+            "bloc_status": "oneshot",
+            "room": "XXXXXXXXX",
+            "slots": [
+                {
+                    "acti_title": "Follow-up - XXXXX",
+                    "date": "XXXX-XX-XX 00:00:00",
+                    "duration": 60,
+                    "status": "open",
+                    "bloc_status": "oneshot",
+                    "id_team": null,
+                    "id_user": null,
+                    "date_ins": null,
+                    "code": null,
+                    "title": null,
+                    "module_title": "XX - XXXXX",
+                    "members_pictures": null,
+                    "past": 1,
+                    "master": null,
+                    "members": [],
+                    "id": 1884195
+                }
+            ],
+            "codeevent": "event-XXXXXXX"
+        }
+    ]
+}
