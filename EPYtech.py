@@ -1,4 +1,5 @@
 from sys import stderr
+from typing import Any
 import requests
 import json
 
@@ -61,25 +62,25 @@ EPITECH_WAC2 = 'wac2'
 
 class EPYtechIntraError(Exception):
 
-    def __init__(self, message='undefined'):
+    def __init__(self, message: str = 'undefined') -> None:
         self.message = message
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.message
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return 'EPYtechIntraError(message: ' + str(self) + ')'
 
 class EPYtechIntra:
 
-    AUTOLOGIN_FILE_PATH = '.intra-epitech.autologin'
-    INTRA = 'https://intra.epitech.eu/'
-    AUTOLOGIN = ''
+    AUTOLOGIN_FILE_PATH: str = '.intra-epitech.autologin'
+    INTRA: str = 'https://intra.epitech.eu/'
+    AUTOLOGIN: str = ''
 
-    def get_payload(self):
+    def get_payload(self) -> str:
         return self.INTRA + self.AUTOLOGIN + '/'
 
-    def _make_request(self, req, get=True, use_json=True):
+    def _make_request(self, req, get: bool = True, use_json: bool = True) -> Any:
         req = self.get_payload() + req
         if use_json:
             req += '&format=json' if req.count('?') else '?format=json'
@@ -93,7 +94,7 @@ class EPYtechIntra:
                     json.dumps({ 'request': req, 'answer': rep.text, 'status_code': rep.status_code, 'error': str(e)},
                     indent=4))
 
-    def save_autologin(self):
+    def save_autologin(self) -> None:
         try:
             with open(self.AUTOLOGIN_FILE_PATH, 'w+') as f:
                 f.write(self.AUTOLOGIN)
@@ -101,22 +102,18 @@ class EPYtechIntra:
             print('EPYtechIntraWarning: Could not save new Autologin in file: '
                     + str(e), file=stderr)
 
-    def update_autologin(self):
+    def update_autologin(self) -> None:
         rep = self._make_request('admin/autolog/generate', get=False)
         self.AUTOLOGIN = json.loads(rep.text)['autologin']
         self.save_autologin()
 
-    def get_autologin(self, by_req=False):
+    def get_autologin(self, by_req: bool = False) -> str:
         if by_req is True:
             return json.loads(self._make_request(f'admin/autolog'))['autologin']
         else:
             return self.AUTOLOGIN
 
-    def trombi(self, location, prom, year, offset=0):
-        if not isinstance(location, list): location = [location]
-        if not isinstance(prom, list):     prom     = [prom]
-        if not isinstance(year, list):     year     = [year]
-
+    def trombi(self, location: List[str], prom: List[str], year: List[str], offset: int = 0) -> List[Any]:
         year = '|'.join(year)
         prom = '|'.join(prom)
         location = '|'.join(location)
@@ -126,22 +123,22 @@ class EPYtechIntra:
             res['items'].extend(self.trombi(location, prom, year, offset + len(res['items']))['items'])
         return res
 
-    def get_module(self, year, module, instance):
+    def get_module(self, year: str | int, module: str, instance: str) -> Any:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/').text)
 
-    def get_registered_module(self, year, module, instance):
+    def get_registered_module(self, year: str | int, module: str, instance: str) -> List[Any]:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/registered').text)
 
-    def get_activity(self, year, module, instance, activity):
+    def get_activity(self, year: str | int, module: str, instance: str, activity: str) -> Any:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}').text)
 
-    def get_activity_appointments(self, year, module, instance, activity):
+    def get_activity_appointments(self, year: str | int, module: str, instance: str, activity: str) -> Any:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/rdv').text)
 
-    def get_project(self, year, module, instance, activity):
+    def get_project(self, year: str | int, module: str, instance: str, activity: str) -> Any:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/project').text)
 
-    def get_project_registered(self, year, module, instance, activity):
+    def get_project_registered(self, year: str | int, module: str, instance: str, activity: str) -> Any:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/registered').text)
 
     def get_project_unregistered(self, year, module, instance, activity):
