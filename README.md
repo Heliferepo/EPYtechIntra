@@ -271,6 +271,11 @@ print(json.dumps(client.get_activity(2022, 'XXXX', 'XXXX', 'XXXX'), indent=4))
 
 ### Get activity appointments:
 
+#### Request:
+```python3
+print(json.dumps(client.get_activity_appointments(2022, 'XXXX', 'XXXX', 'XXXX'), indent=4))
+```
+
 #### Response:
 
 ```json
