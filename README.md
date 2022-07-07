@@ -19,7 +19,7 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 | `get_module` | `def get_module(self, year: str \| int, module: str, instance: str) -> Dict(str, Any):` | Returns Information about the given module | `(Json)` |
 | `get_registered_module` | `def get_registered_module(self, year: str \| int, module: str, instance: str) -> List[Dict(str, Any)]:` | Returns all the users that are registered to a specific module | `(Json)` |
 | `get_activity` | `def get_activity(self, year: str \| int, module: str, instance: str, activity: str) -> Dict(str, Any):` | Returns information about a specific module | `(Json)`
-| `get_activity_appointments` | `def get_activity_appointments(self, year: str \| int, module: str, instance: str, activity: str) -> Any:` | 
+| `get_activity_appointments` | `def get_activity_appointments(self, year: str \| int, module: str, instance: str, activity: str) -> Any:` | Returns information about all the registered groups of a specified activity to a appointment like a follow up | `(Json)`
 
 ### Locations, prom aliases examples:
 
