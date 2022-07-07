@@ -135,13 +135,13 @@ class EPYtechIntra:
     def get_activity_appointments(self, year: str | int, module: str, instance: str, activity: str) -> Dict(str, Any):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/rdv').text)
 
-    def get_project(self, year: str | int, module: str, instance: str, activity: str) -> Any:
+    def get_project(self, year: str | int, module: str, instance: str, activity: str) -> Dict(str, Any):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/project').text)
 
-    def get_project_registered(self, year: str | int, module: str, instance: str, activity: str) -> Any:
+    def get_project_registered(self, year: str | int, module: str, instance: str, activity: str) -> List[Dict(str, Any)]:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/registered').text)
 
-    def get_project_unregistered(self, year, module, instance, activity):
+    def get_project_unregistered(self, year: str | int, module: str, instance: str, activity: str) -> Any:
         return self._make_request(f'module/{year}/{module}/{instance}/{activity}/project/exportunregistered', use_json=False).text.split('\n')
 
     def get_project_files(self, year, module, instance, activity):
