@@ -6,6 +6,8 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 
 ## Documentation
 
+**For all `(Json)` replies check the example section**
+
 | Function | Description | Return value |
 | -------- | ----------- | ------------ |
 | `get_payload` | Returns the url base | `intra.epitech.eu/auth-XXX/` |
@@ -13,8 +15,8 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 | `update_autologin` | Updates the current autologin with a new one (Also saves it with `save_autologin`) | `None` |
 | `get_autologin` `by_req=True` | Can be used to check if the given autologin works, Returns a string with the current payload | `intra.epitech.eu/auth-XXXX'` |
 | `get_autologin` `by_req=False` | Returns in a string the current autologin | `auth-XXXX` |
-| `trombi` | Returns the list of students matching the given parameters (All the parameters should be a list) | `(Json) See Trombi example` |
-| `get_module` |
+| `trombi` | Returns the list of students matching the given parameters (All the parameters should be a list) | `(Json)` |
+| `get_module` | Returns Information about the given module | `(Json)` |
 
 ### Locations, prom aliases examples:
 
