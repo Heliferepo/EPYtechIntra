@@ -7,6 +7,7 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 ## Documentation
 
 **For all `(Json)` replies check the example section**
+**All responses are examples and are there to give you an idea of the model that uses the intranet they are absolutely not representative values of the real intranet most of them have been hidden or replaced to fake ones only keys are constants**
 
 | Function | Definition | Description | Return value |
 | -------- | ---------- | ----------- | ------------ |
@@ -20,6 +21,8 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 | `get_registered_module` | `def get_registered_module(self, year: str \| int, module: str, instance: str) -> List[Dict(str, Any)]:` | Returns all the users that are registered to a specific module | `(Json)` |
 | `get_activity` | `def get_activity(self, year: str \| int, module: str, instance: str, activity: str) -> Dict(str, Any):` | Returns information about a specific module | `(Json)`
 | `get_activity_appointments` | `def get_activity_appointments(self, year: str \| int, module: str, instance: str, activity: str) -> Any:` | Returns information about all the registered groups of a specified activity to a appointment like a follow up | `(Json)`
+| `get_project` | `def get_project(self, year: str \| int, module: str, instance: str, activity: str) -> Dict(str, Any):` | Returns informations about a specified project | `(Json)`
+| `get_project_registered` | `def get_project_registered(self, year: str \| int, module: str, instance: str, activity: str) -> List[Dict(str, Any)]:` | Returns a list of each group that are not registered to the project | `(Json)`
 
 ### Locations, prom aliases examples:
 
@@ -362,3 +365,137 @@ print(json.dumps(client.get_activity_appointments(2022, 'XXXX', 'XXXX', 'XXXX'),
         }
     ]
 }
+```
+
+### Get project
+
+#### Request
+```python3
+print(json.dumps(client.get_project(2022, 'XXXX', 'XXXX', 'XXXX'), indent=4))
+```
+
+#### Response
+
+```json
+{
+    "scolaryear": "2021",
+    "codemodule": "X-XXX-XXX",
+    "codeinstance": "XXX-X-X",
+    "codeacti": "acti-XXXXXX",
+    "instance_location": "FR/PAR",
+    "module_title": "XXXXXXXXX",
+    "id_activite": "XXXX",
+    "project_title": null,
+    "type_title": "Follow-up",
+    "type_code": "rdv",
+    "register": true,
+    "register_by_bloc": "0",
+    "register_prof": "0",
+    "nb_min": null,
+    "nb_max": null,
+    "begin": "XXXX-XX-XX 00:00:00",
+    "end": "XXXX-XX-XX 00:00:00",
+    "end_register": null,
+    "deadline": null,
+    "is_rdv": true,
+    "instance_allowed": "1",
+    "title": "XXXXXXx",
+    "description": "",
+    "closed": true,
+    "over": -137,
+    "over_deadline": null,
+    "date_access": true,
+    "instance_registered": "1",
+    "user_project_status": null,
+    "root_slug": null,
+    "forum_path": null,
+    "slug": null,
+    "call_ihk": "0",
+    "nb_notes": 0,
+    "user_project_master": null,
+    "user_project_code": null,
+    "user_project_title": null,
+    "registered_instance": 38,
+    "registered": [],
+    "notregistered": [
+        {
+            "login": "john.doe@epitech.eu",
+            "picture":"\/file\/userprofil\/john.doe@epitech.eu.bmp",
+            "title":"John Doe",
+            "location":null,
+            "promo": 2022,
+            "course_code":"bachelor/classic",
+            "grade":null,
+            "cycle":"bachelor",
+            "date_ins":"XXXX-XX-XX 00:00:00",
+            "credits":0,
+            "flags":[],
+            "semester":"XX"
+        },
+        {
+            "login": "john2.doe@epitech.eu",
+            "picture":"\/file\/userprofil\/john2.doe@epitech.eu.bmp",
+            "title":"John2 Doe",
+            "location":null,
+            "promo": 2022,
+            "course_code":"bachelor/classic",
+            "grade":null,
+            "cycle":"bachelor",
+            "date_ins":"XXXX-XX-XX 00:00:00",
+            "credits":0,
+            "flags":[],
+            "semester":"XX"
+        }
+    ]
+    "urls": []
+}
+```
+
+### Get project registered
+
+#### Request:
+```python3
+print(json.dumps(client.get_project_registered(2022, 'XXXX', 'XXXX', 'XXXX'), indent=4))
+```
+
+#### Response:
+
+```json
+[
+    {
+        "id": "2296728",
+        "title": "GroupName",
+        "code": "CodeName",
+        "final_note": null,
+        "repository": null,
+        "project_title": "XXXX",
+        "closed": true,
+        "master": {
+            "login": "john.doe@epitech.eu",
+            "date_ins": "0000-00-00 00:00:00",
+            "date_modif": null,
+            "status": "confirmed",
+            "picture": "\/file\/userprofil\/john.doe.bmp",
+            "title": "John DOE"
+        },
+        "members": [
+            {
+                "login": "John.Doe2@epitech.eu",
+                "date_ins": "0000-00-00 00:00:00",
+                "date_modif": "0000-00-00 00:00:00",
+                "status": "confirmed",
+                "picture": "\/file\/userprofil\/john.doe2.bmp",
+                "title": "John DOE2"
+            },
+            {
+                "login": "john.doe3@epitech.eu",
+                "date_ins": "0000-00-00 00:00:00",
+                "date_modif": "0000-00-00 00:00:00",
+                "status": "confirmed",
+                "picture": "\/file\/userprofil\/john.doe3.bmp",
+                "title": "John DOE3"
+            }
+        ]
+    }
+]
+```
