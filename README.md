@@ -8,16 +8,16 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 
 **For all `(Json)` replies check the example section**
 
-| Function | Description | Return value |
-| -------- | ----------- | ------------ |
-| `get_payload` | Returns the url base | `intra.epitech.eu/auth-XXX/` |
-| `save_autologin` | Saves the current autlogin in `.intra-epitech.autologin` | `None` |
-| `update_autologin` | Updates the current autologin with a new one (Also saves it with `save_autologin`) | `None` |
-| `get_autologin` `by_req=True` | Can be used to check if the given autologin works, Returns a string with the current payload | `intra.epitech.eu/auth-XXXX'` |
-| `get_autologin` `by_req=False` | Returns in a string the current autologin | `auth-XXXX` |
-| `trombi` | Returns the list of students matching the given parameters (All the parameters should be a list) | `(Json)` |
-| `get_module` | Returns Information about the given module | `(Json)` |
-| `get_registered_module` | Returns all the users that are registered to a specific module | `(Json)` |
+| Function | Definition | Description | Return value |
+| -------- | ---------- | ----------- | ------------ |
+| `get_payload` | `def get_payload(self) -> str:` | Returns the url base | `intra.epitech.eu/auth-XXX/` |
+| `save_autologin` | `def save_autologin(self) -> None:` |Saves the current autlogin in `.intra-epitech.autologin` | `None` |
+| `update_autologin` | `def update_autologin(self) -> None:` | Updates the current autologin with a new one (Also saves it with `save_autologin`) | `None` |
+| `get_autologin` `by_req=True` | `def get_autologin(self, by_req: bool =False) -> str:` | Can be used to check if the given autologin works, Returns a string with the current payload | `intra.epitech.eu/auth-XXXX'` |
+| `get_autologin` `by_req=False` | `def get_autologin(self, by_req: bool =False) -> str:` | Returns in a string the current autologin | `auth-XXXX` |
+| `trombi` | `def trombi(self, location: List[str], prom: List[str], year: List[str], offset: int = 0) -> List[any]:` | Returns the list of students matching the given parameters (All the parameters should be a list) | `(Json)` |
+| `get_module` | `def` | Returns Information about the given module | `(Json)` |
+| `get_registered_module` | `def` | Returns all the users that are registered to a specific module | `(Json)` |
 
 ### Locations, prom aliases examples:
 
