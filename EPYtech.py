@@ -113,7 +113,7 @@ class EPYtechIntra:
         else:
             return self.AUTOLOGIN
 
-    def trombi(self, location: List[str], prom: List[str], year: List[str], offset: int = 0) -> List[Any]:
+    def trombi(self, location: List[str], prom: List[str], year: List[str], offset: int = 0) -> List[Dict(str, str)]:
         year = '|'.join(year)
         prom = '|'.join(prom)
         location = '|'.join(location)
@@ -123,16 +123,16 @@ class EPYtechIntra:
             res['items'].extend(self.trombi(location, prom, year, offset + len(res['items']))['items'])
         return res
 
-    def get_module(self, year: str | int, module: str, instance: str) -> Any:
+    def get_module(self, year: str | int, module: str, instance: str) -> Dict(str, Any):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/').text)
 
-    def get_registered_module(self, year: str | int, module: str, instance: str) -> List[Any]:
+    def get_registered_module(self, year: str | int, module: str, instance: str) -> List[Dict(str, Any)]:
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/registered').text)
 
-    def get_activity(self, year: str | int, module: str, instance: str, activity: str) -> Any:
+    def get_activity(self, year: str | int, module: str, instance: str, activity: str) -> Dict(str, Any):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}').text)
 
-    def get_activity_appointments(self, year: str | int, module: str, instance: str, activity: str) -> Any:
+    def get_activity_appointments(self, year: str | int, module: str, instance: str, activity: str) -> Dict(str, Any):
         return json.loads(self._make_request(f'module/{year}/{module}/{instance}/{activity}/rdv').text)
 
     def get_project(self, year: str | int, module: str, instance: str, activity: str) -> Any:
