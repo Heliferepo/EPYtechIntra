@@ -23,6 +23,7 @@ Thanks to [norech](https://github.com/norech) for helping me build this API
 | `get_activity_appointments` | `def get_activity_appointments(self, year: str \| int, module: str, instance: str, activity: str) -> Any:` | Returns information about all the registered groups of a specified activity to a appointment like a follow up | `(Json)`
 | `get_project` | `def get_project(self, year: str \| int, module: str, instance: str, activity: str) -> Dict(str, Any):` | Returns informations about a specified project | `(Json)`
 | `get_project_registered` | `def get_project_registered(self, year: str \| int, module: str, instance: str, activity: str) -> List[Dict(str, Any)]:` | Returns a list of each group that are not registered to the project | `(Json)`
+| `get_project_unregistered` | `def get_project_unregistered(self, year: str \| int, module: str, instance: str, activity: str) -> List[str]:` | Returns a list of all the mails of each non registered user to the given project | `['sname.name@epitech.eu', 'sname2.name@epitech.eu', '...' ]`
 
 ### Locations, prom aliases examples:
 
