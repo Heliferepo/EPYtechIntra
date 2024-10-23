@@ -1,5 +1,8 @@
 # EPYtechIntra
 
+# DEPRECATED:
+Because the autologin system have been removed please use [Norech NodeJS implementation](https://github.com/norech/epitech.js) - (This uses puppeteer as a provider)
+
 ## Thanks
 
 Thanks to [norech](https://github.com/norech) for helping me build this API
